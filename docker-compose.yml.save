@@ -1,0 +1,58 @@
+
+
+version: '3'
+services:
+  traefik:
+      image: traefik
+      command: -c /dev/null --web --docker
+      labels:
+        - "traefik.enable=false"
+      ports:
+        - "80:80"
+        - "8080:8080"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+
+  eureka:
+    image: soa/eureka-server
+    labels:
+      - "traefik.port=8761"
+      - "traefik.backend=eureka"
+      - "traefik.frontend.rule=PathPrefixStrip:/eureka"
+    depends_on:
+      - traefik
+
+
+  recruitment:
+    image: soa/recruitment
+    labels:
+      - traefik.port=8080
+      - traefik.backend=recruitment
+      - traefik.frontend.rule=PathPrefixStrip:/recruitment
+    depends_on:
+      - traefik
+      - eureka
+      - db
+    links:
+      - db
+      - eureka
+
+  demoapp:
+    image: soa/demo-app
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=demoapp"
+      - "traefik.frontend.rule=PathPrefixStrip:/demoapp"
+    depends_on:
+      - traefik
+      - eureka
+    links:
+      - eureka
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: soa-recruitment-db
