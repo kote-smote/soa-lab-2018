@@ -1,0 +1,26 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+    healthcheck:
+      enabled: false
+  appInfo:
+    replicate:
+      interval: 3
+    initial:
+      replicate:
+        time: 3
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    demo-app: /demo-app/**
+    recruitment: /recruitment/**
+    eureka: /eureka/**
+
+management:
+  security:
+    enabled: false

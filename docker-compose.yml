@@ -21,17 +21,25 @@ services:
     depends_on:
       - traefik
 
+  zuul:
+    image: soa/zuul
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=zuul"
+      - "traefik.frontend.rule=PathPrefixStrip:/zuul"
+    depends_on:
+      - traefik
+      - eureka
 
   recruitment:
     image: soa/recruitment
     labels:
-      - traefik.port=8080
-      - traefik.backend=recruitment
-      - traefik.frontend.rule=PathPrefixStrip:/recruitment
+      - "traefik.enable=false"
     depends_on:
       - traefik
       - eureka
       - postgres
+      - zuul
     links:
       - postgres
       - eureka
@@ -39,12 +47,11 @@ services:
   demoapp:
     image: soa/demo-app
     labels:
-      - "traefik.port=8080"
-      - "traefik.backend=demoapp"
-      - "traefik.frontend.rule=PathPrefixStrip:/demoapp"
+      - "traefik.enable=false"
     depends_on:
       - traefik
       - eureka
+      - zuul
     links:
       - eureka
 
