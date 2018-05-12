@@ -1,5 +1,9 @@
 target/
+build/
+out/
 */target/
+*/build/
+*/out/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
