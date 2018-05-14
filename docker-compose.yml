@@ -31,6 +31,15 @@ services:
       - traefik
       - eureka
 
+  gateway:
+    image: soa/gateway
+    labels:
+      - "traefik.enable=false"
+    depends_on:
+      - traefik
+      - eureka
+      - zuul
+
   recruitment:
     image: soa/recruitment
     labels:

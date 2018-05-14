@@ -13,13 +13,3 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
-
-zuul:
-  ignoredServices: '*'
-  routes:
-    gateway: /gateway/**
-    eureka: /eureka/**
-
-management:
-  security:
-    enabled: false

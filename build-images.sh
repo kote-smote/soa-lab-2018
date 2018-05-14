@@ -20,4 +20,10 @@ cd zuul
 ./mvnw install dockerfile:build -DskipTests=true
 cd ..
 
+echo "building gateway docker image"
+cd gateway
+./mvnw install dockerfile:build -DskipTests=true
+cd ..
+
+
 echo "You are ready to start docker-compose: docker-compose up"
