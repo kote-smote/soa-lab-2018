@@ -49,4 +49,9 @@ public class GateControllerFeign {
         return demoAppClient.getHello();
     }
 
+    @GetMapping("/protected-from-recruitment")
+    public String protectedFromRecruitment() {
+        return recruitmentClient.getProtected();
+    }
+
 }

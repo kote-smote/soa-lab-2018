@@ -1,2 +1,4 @@
 - eureka
 - zuul
+- gateway
+- login (authorization is moved to the individual microservices)

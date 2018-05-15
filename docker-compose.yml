@@ -40,6 +40,17 @@ services:
       - eureka
       - zuul
 
+  login:
+    image: soa/login
+    labels:
+      - "traefik.enable=false"
+    depends_on:
+      - traefik
+      - eureka
+      - zuul
+    links:
+      - eureka
+
   recruitment:
     image: soa/recruitment
     labels:

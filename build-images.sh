@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "building login docker image"
+cd login
+./mvnw install dockerfile:build -DskipTests=true
+cd ..
+
 echo "building recruitment docker image"
 cd recruitment
 ./mvnw install dockerfile:build -DskipTests=true
